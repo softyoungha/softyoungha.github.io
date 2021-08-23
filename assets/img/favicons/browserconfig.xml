@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 layout: compress
 ---
@@ -11,3 +12,6 @@ layout: compress
     </tile>
   </msapplication>
 </browserconfig>
+=======
+<?xml version="1.0" encoding="utf-8"?> <browserconfig> <msapplication> <tile> <square150x150logo src="/assets/img/favicons/mstile-150x150.png" /> <TileColor>#da532c</TileColor> </tile> </msapplication> </browserconfig>
+>>>>>>> 1cc98f1433a0d613fc00682637c8a97073804db4

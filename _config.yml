@@ -77,10 +77,10 @@ theme_mode:   dark # [light|dark]
 # will be added to all image (site avatar & posts' images) paths starting with '/'
 #
 # e.g. 'https://cdn.com'
-img_cdn: 'https://cdn.jsdelivr.net/gh/softyoungha/softyoungha.github.io/assets/img'
+img_cdn: 'https://cdn.jsdelivr.net/gh/softyoungha/softyoungha/blog/img'
 
 # the avatar on sidebar, support local or CORS resources
-avatar: https://cdn.jsdelivr.net/gh/softyoungha/softyoungha.github.io/assets/img/logo.png
+avatar: https://cdn.jsdelivr.net/gh/softyoungha/softyoungha/blog/img/logo.png
 
 # boolean type, the global switch for ToC in posts.
 toc: true
