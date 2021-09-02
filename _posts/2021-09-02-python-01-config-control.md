@@ -7,7 +7,7 @@ tags: [Python]
 math: true
 mermaid: true
 image:
-  src: https://cdn.jsdelivr.net/gh/softyoungha/softyoungha/blog/img/python.png
+  src: https://cdn.jsdelivr.net/gh/softyoungha/softyoungha/blog/img/python.jpg
   width: 680
   height: 440
 ---
