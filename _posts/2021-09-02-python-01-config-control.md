@@ -44,13 +44,14 @@ def load_conn():
 
 이때, configuration 정보를 dictionary 형태로 관리하게 되면 좀 더 간결하게 작성할 수 있습니다.
 
-여기에 더해서 `profile` 이라는 개념을 추가하여 db config에서 profile_name으로 정보를 get 해오겠습니다.
+여기에 더해서 `profile_name` 이라는 속성을 추가하여 db config를 구분하겠습니다.
 
 ```python
 # BETTER
 import pymysql
 
 db_config = {
+  # profile_name = 'yh-1'
   'yh-1': {
     'host': 'my-host-1',
     'port': 3306,
@@ -58,6 +59,7 @@ db_config = {
     'password': 'my-password-1',
     'database': 'my-database-1'
   },
+  # profile_name = 'yh-2'
   'yh-2': {
     'host': 'my-host-2',
     'port': 8306,
@@ -82,13 +84,14 @@ conn = load_conn('yh-1')
 
 mysql 뿐만 아니라 postgres까지 접속해야 하는 상황이라면 어떻게 할까요?
 
-postgres는 psycopg2 라이브러리를 사용하므로 다시 import 해야 할 것입니다.
+postgres는 `psycopg2` 라이브러리를 사용하므로 if문을 사용해야 할 것입니다.
 
-좀 더 general하게 코드를 짜기 위해서 `Database Driver`라는 개념을 추가하겠습니다.
+좀 더 general하게 코드를 짜기 위해서 `Database Driver`라는 속성을 추가하겠습니다.
 
 ```python
 # MORE BETTER
 db_config = {
+  # profile_name = 'mysql-yh-1'
   'mysql-yh-1': {
     'driver': 'mysql',  # Driver 추가
     'host': 'my-host-1',
@@ -97,6 +100,7 @@ db_config = {
     'password': 'my-password-1',
     'database': 'my-database-1'
   },
+  # profile_name = 'mysql-yh-2'
   'mysql-yh-2': {
     'driver': 'mysql',  # Driver 추가
     'host': 'my-host-2',
@@ -105,6 +109,7 @@ db_config = {
     'password': 'my-password-2',
     'database': 'my-database-2'
   },
+  # profile_name = 'postgres-yh'
   'postgres-yh': {
     'driver': 'postgres',   # Driver 추가
     'host': 'my-host-3',
@@ -143,22 +148,22 @@ def load_conn(profile_name: str):
 
 두가지 방법이 있습니다.
 
-1. Python 소스 코드에 Dictionary 형태로 저장
+1. Python 소스 코드에 **Dictionary** 형태로 저장
 
-2. 별도의 파일로 저장하며 Python 내부에서 로드하여 사용
+2. **별도의 파일**로 저장하며 Python 내부에서 로드하여 사용
 
 상황에 따라 둘 중 하나를 사용하셔도 되지만,
 다음의 상황들에서는 무조건 2번 방법을 추천합니다.
 (웬만하면 2번으로 하시는게..)
 
-1. 개발과 운영 환경을 별도로 구성하는 경우
+- **개발과 운영 환경**을 별도로 구성하는 경우
 
   - 만약 Python 소스에 Dictionary 형태로 저장하게 되면
     개발 환경에서도 운영 환경에 접근하는 Config 정보를 가지고 있다는 것인데,
     개발 환경과 운영 환경은 격리되는 것이 보통 맞습니다.
     (실수의 스케일이 달라집니다)
 
-2. Flask, Django, FastAPI 등의 웹서버를 사용하는 경우
+- Flask, Django, FastAPI 등의 **웹서버**에서 사용하는 경우
 
   - DB 접속정보를 수정해줘야 하는 경우, Python 소스 내에 위치하게 되면 코드를 수정한 후 웹서버를 리스타트해야 변경된 접속정보가 반경됩니다.
   - 당연히 리스타트해야 하는 것이 맞을 수도 있지만, 한창 개발하는 상황에서 리스타트 한번이 매우 번거로운 일이 될 수 있습니다.
@@ -168,17 +173,19 @@ def load_conn(profile_name: str):
 # Config 파일 형식
 
 저는 주로 `.json`, `.yaml`, `.cfg` 세가지 중 하나를 사용합니다.
+
 python `list`와 `dict` 데이터 타입과 1:1로 매핑되도록 저장할 수 있어야 하는 것이 중요합니다.
 
 ### 1. Json
 
 Python의 Dictionary 타입과 매우 유사하기 때문에 처음엔 많이 사용했습니다만,
-은근히 Json 형식이 엄격해서 최근에는 잘 사용하지 않고 있습니다.
-콤마(`,`), 그리고 따옴표(`'`)와 쌍따옴표(`"`)의 차이 등을 주의해서 사용해야 합니다.(찾기 힘들 때도 있습니다.)
+은근히 Json 형식이 엄격한 탓에 최근에는 잘 사용하지 않고 있습니다.
+
+콤마(`,`), 그리고 따옴표(`'`)와 쌍따옴표(`"`)의 차이 등을 주의해서 사용해야 합니다.
+(찾기 힘들 때도 있습니다.)
 
 ```json
-# db_config.json
-
+// db_config.json
 {
   "mysql-yh": {
     "driver": "mysql",
@@ -219,6 +226,7 @@ db_config: dict = load_json('db_config.json')
 최근에는 Yaml 파일을 주로 사용합니다.
 보기 쉽고 개발자가 아니여도 제대로 작성했는지 확인하기 쉽습니다.
 그리고 Json과 다르게 주석도 추가할 수 있습니다.
+
 주의할 점은 숫자와 문자열 처리를 제대로 처리해줘야 한다는 점입니다.
 > Yaml 내에서 `list` 타입과 `dict` 타입을 구별하여 표현하는 것은 따로 검색해서 찾아보세요.
 > 아래 예시는 dict만을 표현하고 있습니다.
@@ -262,11 +270,11 @@ db_config: dict = load_yaml('db_config.yaml')
 
 python에서 cfg 파일을 로드할 때 `configparser` 라는 라이브러리를 사용하는데,
 json이나 yaml과 살짝 사용법이 다릅니다.
-좀 있어보이게 Config 파일을 구성할 수 있습니다.
+좀 더 있어보이게 Config 파일을 구성할 수 있습니다.
 
 > 참고로 Airflow 내에서도 `airflow.cfg` config 파일을 사용합니다.
 
-```cfg
+```editorconfig
 # db_config.cfg
 
 [mysql-yh]
@@ -310,7 +318,7 @@ db_config: dict = load_cfg('db_config.cfg')
 
 다른 프로그램에서 사용하는 환경변수와 겹칠 수 있으므로 Unique할 수 있도록 Prefix를 하나 정해서 환경변수를 추가하는 것이 좋습니다.
 
-```sh
+```shell
 # vi ~/.bashrc
 
 ...
