@@ -329,8 +329,12 @@ export PROJECT_CONF_DIR = '~/.config/project'
 
 ### Config 파일
 
-리눅스의 경우 Dot(`.`)을 폴더/파일 앞에 붙히면 해당 파일을 숨길 수 있습니다.(`ls -al`로 확인할 수 있습니다.)
-개발환경과 운영환경이 각각 다른 config 파일을 바라볼 수 있도록 config 파일도 두 개 준비합니다.(바라보는 db도 다릅니다.)
+리눅스의 경우 Dot(`.`)을 폴더/파일 앞에 붙히면 해당 파일을 숨길 수 있습니다.
+(`ls -al`로 확인할 수 있습니다.)
+
+개발환경과 운영환경이 각각 다른 config 파일을 바라볼 수 있도록 config 파일도 두 개 준비합니다.
+(바라보는 db도 다릅니다.)
+
   - 개발서버: ~/.config/project/db_config.yml
   - 운영서버: ~/.config/project/db_config.prod.yml
 
