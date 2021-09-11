@@ -267,7 +267,7 @@ def give_message(as_msg: bool, msg: Optional[str] = None) -> Optional[str]:
 이 때 `typing` 패키지를 사용해서 최소한의 설명을 추가하는 것이 무조건 좋기 때문에,
 권장이 아니라 필수로 코드에 반영하도록 합시다.
 
-> 만약 Pycharm 유저라면 typing을 코드에 잘 반영해놓았다면 엄청난 이점이 있습니다.
+> 만약 Pycharm 유저라면 typing을 코드에 잘 반영해놓았다면 되게 편리합니다.
 >
 > 어떤 변수의 class를 추적하기 어렵게 코드가 복잡한 경우,
 > typing을 해놓는다면 Pycharm에서 해당 변수의 class를 연결해주어서 class 내부 함수들도 자동완성으로 사용할 수 있습니다.
