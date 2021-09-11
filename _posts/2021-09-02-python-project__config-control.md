@@ -3,7 +3,7 @@ title: 1. Python에서 Config 관리하기
 author: Youngha Park
 date: 2021-09-02 11:33:00 +0800
 categories: [Python, 프로젝트 구성]
-tags: [Python]
+tags: [Python, Configuration, Project Structure]
 math: true
 mermaid: true
 image:
@@ -25,7 +25,7 @@ image:
 - Simple Method
 
 ```python
-# BAD
+# Simple, but not recommended
 import pymysql
 
 def load_conn():
@@ -144,6 +144,8 @@ def load_conn(profile_name: str):
     return conn
 ```
 
+이렇게 connection을 불러오는 함수를 세팅해놓으면 후에 profile_name만 입력해서 해당 connection을 불러오는 것이 쉽습니다.
+
 # Config 저장은 어떻게?
 
 두가지 방법이 있습니다.
@@ -152,23 +154,30 @@ def load_conn(profile_name: str):
 
 2. **별도의 파일**로 저장하며 Python 내부에서 로드하여 사용
 
-상황에 따라 둘 중 하나를 사용하셔도 되지만,
+1번을 따르시려면 위의 `MORE BETTER` case처럼 코드 상에 host, port, user, password 모두 노출하는 것입니다.
+
+개인적으로 진행하는 프로젝트나 짧은 분석 프로젝트(산출물이 소스코드가 아닌 경우)에는 1번과 같이 노출해도 무방할 것입니다.
+
+상황에 따라 둘 중 하나를 사용하면 됩니다만,
 다음의 상황들에서는 무조건 2번 방법을 추천합니다.
 (웬만하면 2번으로 하시는게..)
+
 
 - **개발과 운영 환경**을 별도로 구성하는 경우
 
   - 만약 Python 소스에 Dictionary 형태로 저장하게 되면
     개발 환경에서도 운영 환경에 접근하는 Config 정보를 가지고 있다는 것인데,
     개발 환경과 운영 환경은 격리되는 것이 보통 맞습니다.
-    (실수의 스케일이 달라집니다)
+    (알고보니 개발에서 운영 DB에 접근해서 데이터를 갈아엎고 있었다거나.. 실수의 스케일이 달라집니다.)
 
 - Flask, Django, FastAPI 등의 **웹서버**에서 사용하는 경우
 
-  - DB 접속정보를 수정해줘야 하는 경우, Python 소스 내에 위치하게 되면 코드를 수정한 후 웹서버를 리스타트해야 변경된 접속정보가 반경됩니다.
-  - 당연히 리스타트해야 하는 것이 맞을 수도 있지만, 한창 개발하는 상황에서 리스타트 한번이 매우 번거로운 일이 될 수 있습니다.
+  - DB 접속정보를 수정해야 할 필요가 있는 경우,
+    Python 소스 내에 위치하게 되면 코드를 수정한 후 웹서버를 재실행해주어야 변경된 접속정보가 반영됩니다.
+  - 당연히 재실행해야 하는 것이 맞을 수도 있지만, 한창 개발하는 상황에서 리스타트 한번이 매우 번거로운 일이 될 수 있습니다.
+    (개발 편의성을 위해)
 
-이 외에도 Python 소스에 위치하면 다른 사람이 만지기에 무섭다 라는 단점 때문인 것도 있습니다.
+이 외에도 Python 소스에 위치하면 잘 모르는 사람이 만지기에 무섭다 라는 단점 때문인 것도 있습니다.
 
 # Config 파일 형식
 

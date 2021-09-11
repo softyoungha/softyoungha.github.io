@@ -3,7 +3,7 @@ title: 1. List & Dictionary는 언제 사용해야 할까?
 author: Youngha Park
 date: 2021-09-04 11:33:00 +0800
 categories: [Python, 기초]
-tags: [Python]
+tags: [Python, List, Dictionary, Data Handling, List Comprehension]
 math: true
 mermaid: true
 image:
@@ -33,8 +33,11 @@ import pandas as pd
 그래서 다음과 같은 고민을 늘 해왔던 것 같습니다.
 
 > 언제 list를 사용하지?
+>
 > dictionary는 언제 쓰지?
+>
 > pandas DataFrame도 좋고 Numpy Array도 좋지만.. 적재적소에서만 사용하고 싶은데?
+>
 > 좀 더 간결하게, 좀 더 fancy하게 표현하는 방법이 없을까?
 
 그래서 이 고민과 함께 오늘 포스트에서는 파이썬 기본 자료형 List와 Dict(Dictionary)에 대해서 이야기해보려 합니다.
@@ -43,10 +46,14 @@ import pandas as pd
 
 나머지 자료형 set, tuple, OrderedDict 등에 대해서는 list와 dict만 잘 이해하셔도 특징만 잘 기억한다면 충분히 잘 사용할 수 있습니다.
 
+---
+
 # List
 
 python 프로그램을 짤 때 우선적으로 데이터를 python 내에서 표현하는 단계부터 시작합니다.
+
 이 때 데이터 구조를 table 형태로 정의하는 것이 경험상 무조건 좋습니다.
+
 list와 dict로 table을 충분히 표현할 수 있으며
 나중에 실제 DB에 적재할 때도 변환 없이 그대로 표현할 수 있습니다.
 
@@ -68,9 +75,10 @@ print(users[user_id])
 쉬운 예제이지만 좀 더 어렵게 생각해보겠습니다.
 
 > index, username을 column로 가지는 users라는 테이블이 있는데,
+>
 > 그 안에 데이터로 '영희', '철수', '민수', '범배' 의 username을 가진 데이터가 4개 있다.
 
-고 표현할 수 있고, 실제 database 라면 테이블을 다음과 같이 생성할 수 있습니다.
+실제 database 라면 테이블을 다음과 같이 생성할 수 있습니다.
 
 ```mysql
 CREATE TABLE  users (
@@ -81,7 +89,9 @@ CREATE TABLE  users (
 ```
 
 database 가 뭔지 잘 모르는 분들이라면 primary key라는 개념만 잘 이해하시면 될 것 같습니다.
+
 `primary key`란 table에서 각 row마다 `unique`하게 가지는 column입니다.
+
 List에서는 모든 element들이 따로 설정하지 않아도 index라는 primary key를 지니고 있습니다.
 
 위의 예제를 다시 풀어보자면,
@@ -146,7 +156,7 @@ user = {
 - list는 index가 primary key로 사용된다.
 - dict는 key를 통해 value를 가져온다(get).
 
-다음과 같이 수정할 수 있습니다.
+Dict를 적용해서 위의 예제를 다음과 같이 수정할 수 있습니다.
 
 ```python
 users = [
@@ -173,6 +183,7 @@ for user in users:
 # Filtering
 
 데이터베이스에서 사용되는 주요 기능 중 하나가 `검색`입니다.
+
 나이가 18살 이상인 user의 이름을 출력하는 query는 다음과 같습니다.
 
 ```mysql
@@ -184,7 +195,7 @@ WHERE   age > 18
 python에서는 다음과 같이 여러 방법으로 표현할 수 있습니다.
 
 ```python
-##### 1. for-loop(처음은 for-loop로 코딩해보고)
+##### 1. for-loop(처음에는 먼저 이렇게 해봅니다.)
 
 # empty list
 filtered_users = []
@@ -200,7 +211,7 @@ for user in users:
     if age > 18:
         filtered_users.append(username)
 
-##### 2. list comprehension(최종적으로는 이렇게 수정)
+##### 2. list comprehension(Recommended)
 filtered_users = [user.get('username')
                   for user in users
                   if user.get('age') > 18]
@@ -220,10 +231,13 @@ filtered_users = map(lambda user: user.get('username'),
 ```
 
 저는 보통 for-loop로 먼저 코딩을 시도해보는데,
-조건문이 너무 까다롭거나 select해올 element 형태가 복잡할 경우가 아니라면 `list comprehension`으로 수정합니다.
+
+조건문이 너무 까다롭거나 select할 element 형태가 복잡할 경우가 아니라면 `list comprehension` 방법으로 수정합니다.
 
 > 하단에 `filter`와 `map`를 사용해서 같은 결과를 얻을 수 있습니다.
+>
 > `filter & map` vs `list comprehension` 에 대한 논의는 검색해보면 성능면에서 차이가 있다고 합니다만,
+>
 > 저는 큰 차이가 없다고 생각해서 더 보기 좋은 list comprehension을 주로 사용합니다.
 
 여러 column을 가져올 때에는
@@ -257,6 +271,7 @@ filtered_users = [
 # Aggregation
 
 database 의 또 다른 주요 기능으로 `Group by`문을 이용한 Aggregation이 있습니다.
+
 지역(location)별 명수(ct)와 나이 평균(max_age)을 구한다면 다음과 같은 쿼리로 표현할 수 있습니다.
 
 ```mysql
@@ -301,6 +316,7 @@ results = [
 나중에 스스로 코드를 볼 때뿐만 아니라 다른 사람과 협업할 때에도 설명할 게 많아집니다.
 
 데이터를 구조화하는 데에 위와 같은 특정 룰을 따른다면 Pandas 나 Numpy 와 같은 다른 라이브러리와 호환도 쉽습니다.
+
 (pandas DataFrame은 애초에 위와 같은 룰을 따르고 있기 때문에 특별한 변환을 해줄 필요도 없습니다.)
 
 ```python
