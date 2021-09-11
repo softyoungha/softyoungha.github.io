@@ -70,7 +70,7 @@ print(get_memory_usage.__doc__)
 ```
 
 여기서 다른 사용자들(+ 기억이 안나는 미래의 나)이 파악할 수 있도록
-함수의 input과 output의 데이터 타입을 `typing`을 사용하여 알려줄 수 있습니다.
+함수의 input과 output의 type을 알려줄 수 있습니다.
 
 ```python
 # simple typing
@@ -80,7 +80,7 @@ def get_memory_usage(as_msg: bool):
 
 위와 같이 `as_msg` input parameter가 `bool` type임을 알려줄 수 있습니다.
 
-여기에 더해, return의 데이터형식도 알려줄 수 있습니다.
+여기에 더해, return의 type도 알려줄 수 있습니다.
 
 ```python
 def get_memory_usage(as_msg: bool) -> str:
@@ -102,7 +102,7 @@ def get_memory_usage(as_msg: bool) -> Union[str, dict]:
 
 ---
 
-더 자세히 하고 싶다면 개별 변수마다 데이터 형태를 적어놓을 수 있습니다.
+더 자세히 하고 싶다면 개별 변수마다 type을 적어놓을 수 있습니다.
 
 ```python
 divide: int = 1024 ** 3
@@ -113,7 +113,9 @@ percent: str = f'{mem.percent:.1f}%'
 used: str = f'{mem.used / divide:.1f}G'
 ```
 
-물론 누가봐도 int고 누가봐도 str인 경우 굳이 적을 필요는 없습니다만 다음과 같이 int나 str같은 단순한 데이터타입이 아닌 경우에 사용하면 좋습니다.
+물론 누가봐도 int고 누가봐도 str인 경우 굳이 적을 필요는 없습니다만
+
+다음과 같이 int나 str같은 단순한 type이 아닌 경우에 사용하면 좋습니다.
 
 ```python
 # 커스텀 Class
@@ -136,11 +138,15 @@ my_var: MyClass = my_func()
 
 간단하지만 이렇게 typing만 해주는 것만으로도 코드를 파악하기 매우 쉽습니다.
 
-> 주의하실 점은 typing은 타입을 명시해주는 것뿐이지 에러를 일으키진 않습니다.
->
-> typing의 목적은 type annotation입니다.
->
-> 별도의 검증을 추가하기 위해서는 `assert`, `isinstance`를 사용해서 `AssertionError`를 일으키도록 구성해야 합니다.
+---
+
+### 주의
+
+typing은 타입을 명시해주는 것뿐이지 에러를 일으키진 않습니다.
+
+typing의 목적은 type annotation입니다.
+
+별도의 검증을 추가하기 위해서는 `assert`, `isinstance`를 사용해서 `AssertionError`를 일으키도록 구성해야 합니다.
 
 ```python
 def my_func(number: int):
@@ -159,7 +165,7 @@ def my_func(number: int):
 
 ## typing: List
 
-간단한 함수라면 Python built-in 데이터타입인 `list`를 사용하면 될 겁니다.
+간단한 함수라면 Python built-in type인 `list`를 사용하면 될 겁니다.
 
 ```python
 my_list: list = [3, 5, 6, 7]
@@ -177,7 +183,7 @@ my_list: List[int] = [3, 5, 6, 7]
 
 List 내의 element들이 모두 int가 아니라면 어떻게 할까요?
 
-element들의 타입을 특정할 수 없다면 Any를 사용해도 괜찮습니다.
+element들의 type을 특정할 수 없다면 Any를 사용해도 괜찮습니다.
 
 ```python
 from typing import List, Any
@@ -186,7 +192,7 @@ from typing import List, Any
 my_list: List[Any] = [3, 5, 6, 7, '하이룽', [3, 4, 5]]
 ```
 
-그나마 element 타입을 알 수 있다면 Union을 사용합니다.
+그나마 element type을 알 수 있다면 Union을 사용합니다.
 
 ```python
 from typing import List, Union
@@ -202,7 +208,7 @@ my_list: List[Union[int, str]] = [3, 5, 6, 7, '하이룽']
 
 ## typing: Dict
 
-dictionary는 Key와 Value로 나누어지기 때문에 두가지 모두 타입을 지정해주어야 합니다.
+dictionary는 Key와 Value로 나누어지기 때문에 두가지 모두 type을 지정해주어야 합니다.
 
 ```python
 from typing import Dict
