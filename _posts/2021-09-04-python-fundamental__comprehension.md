@@ -1,5 +1,5 @@
 ---
-title: 1. List & Dictionary는 언제 사용해야 할까?
+title: [Python/기초] 1. List & Dictionary는 언제 사용해야 할까?
 author: Youngha Park
 date: 2021-09-04 11:33:00 +0800
 categories: [Python, 기초]

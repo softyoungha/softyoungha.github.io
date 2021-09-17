@@ -1,5 +1,5 @@
 ---
-title: 2. Typing 은 권장이 아니라 필수!
+title: [Python/기초] 2. Typing 은 권장이 아니라 필수!
 author: Youngha Park
 date: 2021-09-09 11:33:00 +0800
 categories: [Python, 기초]
