@@ -7,7 +7,7 @@ tags: [Python, Typing]
 math: true
 mermaid: true
 image:
-  src: /python.png
+  src: /python.jpg
   width: 680
   height: 440
 ---

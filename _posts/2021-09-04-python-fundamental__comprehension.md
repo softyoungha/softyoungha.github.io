@@ -7,7 +7,7 @@ tags: [Python, List, Dictionary, Data Handling, List Comprehension]
 math: true
 mermaid: true
 image:
-  src: /python.png
+  src: /python.jpg
   width: 680
   height: 440
 ---
