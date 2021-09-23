@@ -7,7 +7,7 @@ tags: [Python]
 math: true
 mermaid: true
 image:
-  src: https://cdn.jsdelivr.net/gh/softyoungha/softyoungha/blog/img/python.png
+  src: python.png
   width: 680
   height: 440
 ---
@@ -59,7 +59,7 @@ Credential 정보, 특히 Admin에 대한 정보는 민감하게 다뤄지는 �
 
   - Pycharm 세팅에서 terminal, python console, run configuration 등등 여러 곳에서 설정할 수 있습니다.
 
-  ![Pycharm Setting Example](https://cdn.jsdelivr.net/gh/softyoungha/softyoungha/blog/img/posts/2021-09-02-python-01-credential-control/img-01.png)
+  ![Pycharm Setting Example](posts/2021-09-02-python-01-credential-control/img-01.png)
 
 2. python 프로그램 내에서 환경 변수를 가져와 사용합니다.
 
