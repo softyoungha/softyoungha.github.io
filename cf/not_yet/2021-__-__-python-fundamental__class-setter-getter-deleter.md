@@ -7,7 +7,7 @@ tags: [Python]
 math: true
 mermaid: true
 image:
-  src: python.png
+  src: /python.png
   width: 680
   height: 440
 ---
