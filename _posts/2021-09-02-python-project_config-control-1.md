@@ -1,5 +1,5 @@
 ---
-title: Python 프로젝트 구성 - 1. Python에서 Config 관리하기
+title: Python 프로젝트 - 1. Python에서 Database Config 관리하기 - (1) File로 관리하기
 author: Youngha Park
 date: 2021-09-02 11:33:00 +0800
 categories: [Python, 프로젝트 구성]
@@ -429,7 +429,7 @@ conn = load_conn('mysql-yh')
 위의 방법을 따르면 충분히 해결하실 수 있을 겁니다.
 
 - 실제 프로젝트 구성시 config 관리
-  ![Pycharm Setting Example](/posts/2021-09-02-python-01-config-control/img-01.png)
+  ![Pycharm Setting Example](/posts/python-project-config-control/img-01.png)
 
 이 포스트에서 다루지 않은 내용으로 `Credential`이 있는데,
 Credential 정보는 config 파일 내 혹은 소스 코드 내에서 평문으로 작성되면 문제가 될 여지가 있습니다.
